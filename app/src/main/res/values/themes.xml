@@ -10,7 +10,22 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MainTextViewStyle">
+        <item name="fontFamily">@font/roboto_thin</item>
+    </style>
+
+    <style name="DividerStyle">
+        <item name="backgroundColor">@color/dividerColor</item>
+    </style>
+
+    <style name="AdditionalWeatherInformationStyle" parent="MainTextViewStyle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+
 </resources>

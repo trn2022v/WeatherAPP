@@ -4,11 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1835" />
+        <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/drawable/bg_main_bottom_sheets.xml" value="0.235" />
+        <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/drawable/bg_mainbottom_sheets_swiper.xml" value="0.235" />
         <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1835" />
         <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/drawable/ic_menu_24.xml" value="0.1545" />
         <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/drawable/ic_outline_settings_24.xml" value="0.1545" />
         <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/font/roboto_thin.xml" value="0.2861111111111111" />
-        <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/qweq_/Desktop/WeaherApp1/app/src/main/res/layout/temp.xml" value="0.29981884057971014" />
       </map>
     </option>

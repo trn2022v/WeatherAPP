@@ -17,7 +17,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:textSize="17sp"
-            android:text="19:00" />
+            tools:text="19:00" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/item_hourly_temp_tv"
@@ -28,7 +28,7 @@
             android:layout_marginBottom="10dp"
             android:includeFontPadding="false"
             android:textSize="20sp"
-            android:text="20\u00b0" />
+            tools:text="20\u00b0" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                 android:id="@+id/item_hourly_weather_condition_icon"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_sun" />
+                tools:src="@drawable/ic_sun" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/item_hourly_pop_tv"
@@ -48,9 +48,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
                 android:includeFontPadding="false"
                 android:textSize="12sp"
-                android:text="25%" />
+                tools:text="25%" />
 
 
         </LinearLayout>

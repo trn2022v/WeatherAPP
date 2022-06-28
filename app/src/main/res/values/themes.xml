@@ -18,7 +18,7 @@
 
 
     <style name="main_weather_conditional_description">
-        <item name="fontFamily">@font/roboto_thin</item>
+<!--        <item name="fontFamily">@font/roboto_thin</item>-->
     </style>
 
     <style name="DividerStyle">

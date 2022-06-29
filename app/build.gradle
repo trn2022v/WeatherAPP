@@ -51,4 +51,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.3'
     kapt 'com.jakewharton:butterknife-compiler:10.2.3'
 
+    //GPS
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
+
 }

@@ -1,17 +1,44 @@
 package com.example.weatherapp
 
+import android.app.TaskStackBuilder.create
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationRequest
+import android.media.MediaParser.create
+import android.media.MediaPlayer.create
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.os.LocaleListCompat.create
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.view.adapters.MainDailyListAdapter
 import com.example.weatherapp.view.adapters.MainHourlyListAdapter
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
+import java.net.URI.create
+import java.util.jar.Manifest
+
+const val GEO_LOCATION_REQUEST_COD_SUCCESS = 1
+const val TAG = "GEO_TEST"
 
 class MainActivity : AppCompatActivity() {
+
+    private val geoService by lazy { LocationServices.getFusedLocationProviderClient(this) }
+    private val locationRequest by lazy { initLocationRequest() }
+    private lateinit var mLocation: Location
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        checkPermission()
         initViews()
 
         main_hourly_list.apply {
@@ -21,11 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         }
         main_daily_list.apply {
-            adapter = MainDailyListAdapter( )
-            layoutManager= LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = MainDailyListAdapter()
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
         }
 
+        geoService.requestLocationUpdates(locationRequest, geoCallBack, null)
 
     }
 
@@ -45,4 +73,79 @@ class MainActivity : AppCompatActivity() {
         main_sundown_mu_tv.text = "22:24"
 
     }
+    // ----------------- location code -----------------
+
+    private fun initLocationRequest(): com.google.android.gms.location.LocationRequest {
+        val request = com.google.android.gms.location.LocationRequest.create()
+        return request.apply {
+            interval = 10000
+            fastestInterval = 5000
+            Priority.PRIORITY_HIGH_ACCURACY
+        }
+
+    }
+
+    private val geoCallBack = object : LocationCallback() {
+        override fun onLocationResult(geo: LocationResult) {
+            Log.d(TAG, "onLocationResult: ${geo.locations.size}")
+            for (location in geo.locations) {
+                mLocation = location
+                //TODO будет вызов презентера
+                Log.d(
+                    TAG,
+                    "onLocationResult: let :${location.latitude}; lon :${location.longitude}"
+                )
+            }
+        }
+    }
+    // ------ initial activity code -------
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d(TAG, "onRequestPermissionsResult: $requestCode")
+
+        //TODO будет запуск main activity
+    }
+
+    private fun checkPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Нам нужны гео данные")
+                .setMessage("Пожалуйста, разрешите доступ к гео данным дял продолжения пользвонания приложением")
+                .setPositiveButton("ok") { _, _ ->
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                        GEO_LOCATION_REQUEST_COD_SUCCESS
+                    )
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
+                        GEO_LOCATION_REQUEST_COD_SUCCESS
+                    )
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
+
+    }
+
+
+    // ----------------- location code -----------------
+
 }

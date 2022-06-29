@@ -51,14 +51,13 @@ class MainDailyListAdapter : BaseAdapter<DailyWeatherModel>() {
         }
 
         override fun bindView(position: Int) {
-            date.text= " 25 saturday"
-            popRate.text ="100%"
+            date.text = " 25 saturday"
+            popRate.text = "100%"
             minTemp.text = "23°"
             maxTemp.text = "33°"
-            if (position==3){
-
+            if (position == 3) {
+                icon.setImageResource(R.drawable.ic_sun)
             }
-            icon.setImageResource(R.drawable.ic_sun)
 
         }
 

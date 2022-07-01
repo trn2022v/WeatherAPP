@@ -31,7 +31,6 @@ import java.net.URI.create
 import java.util.jar.Manifest
 import kotlin.reflect.KProperty
 
-const val GEO_LOCATION_REQUEST_COD_SUCCESS = 1
 const val TAG = "GEO_TEST"
 
 class MainActivity : MvpAppCompatActivity(), MainView {
@@ -48,8 +47,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        checkPermission()
         initViews()
 
         main_hourly_list.apply {
@@ -75,7 +72,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         main_date_name.text = "21 april"
         main_weather_conditional_icon.setImageResource(R.drawable.ic_sun)
         main_temp.text = "25\u00b0"
-        main_min_temp.text = " 17"
+        main_min_temp.text = "17"
         main_max_temp.text = "27"
         main_weather_img.setImageResource(R.mipmap.union3x)
         main_weather_conditional_description.text = "clear sky"
@@ -150,52 +147,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             }
         }
     }
-    // ------ initial activity code -------
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        Log.d(TAG, "onRequestPermissionsResult: $requestCode")
-
-        //TODO будет запуск main activity
-    }
-
-    private fun checkPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            MaterialAlertDialogBuilder(this)
-                .setTitle("Нам нужны гео данные")
-                .setMessage("Пожалуйста, разрешите доступ к гео данным дял продолжения пользвонания приложением")
-                .setPositiveButton("ok") { _, _ ->
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                        GEO_LOCATION_REQUEST_COD_SUCCESS
-                    )
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
-                        GEO_LOCATION_REQUEST_COD_SUCCESS
-                    )
-                }
-                .setNegativeButton("Cancel") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
-        }
-
-    }
 
     // ----------------- location code/ -----------------
 

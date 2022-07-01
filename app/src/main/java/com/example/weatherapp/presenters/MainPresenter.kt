@@ -5,7 +5,7 @@ import com.example.weatherapp.view.MainView
 class MainPresenter : BasePresenter<MainView>() {
 
 
-    //todo юудет переменная репозитории
+    //todo будет переменная репозитории
 
     override fun enable() {
 

@@ -9,6 +9,7 @@ import java.lang.Error
 
 interface MainView : MvpView {
 
+
     @AddToEndSingle
     fun displayLocation(data: String)
 

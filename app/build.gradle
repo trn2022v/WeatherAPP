@@ -66,4 +66,9 @@ dependencies {
     implementation "com.github.moxy-community:moxy-material:2.2.2"
     implementation "com.github.moxy-community:moxy-ktx:2.2.2"
 
+    //Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
 }

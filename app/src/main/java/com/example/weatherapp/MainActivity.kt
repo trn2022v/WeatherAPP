@@ -1,20 +1,9 @@
 package com.example.weatherapp
 
-import android.app.TaskStackBuilder.create
-import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationRequest
-import android.media.MediaParser.create
-import android.media.MediaPlayer.create
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.app.ActivityCompat
-import androidx.core.os.LocaleListCompat.create
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherapp.business.model.DailyWeatherModel
-import com.example.weatherapp.business.model.HourlyWeatherModel
-import com.example.weatherapp.business.model.WeatherData
 import com.example.weatherapp.presenters.MainPresenter
 import com.example.weatherapp.view.MainView
 import com.example.weatherapp.view.adapters.MainDailyListAdapter
@@ -23,13 +12,9 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import java.net.URI.create
-import java.util.jar.Manifest
-import kotlin.reflect.KProperty
 
 const val TAG = "GEO_TEST"
 
@@ -63,7 +48,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         mainPresenter.enable()
 
-        geoService.requestLocationUpdates(locationRequest, geoCallBack, null)
+       // geoService.requestLocationUpdates(locationRequest, geoCallBack, null)
 
     }
 

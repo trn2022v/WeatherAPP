@@ -1,7 +1,6 @@
 package com.example.weatherapp.view.adapters
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Icon
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

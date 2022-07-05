@@ -4,6 +4,9 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weatherapp.business.model.DailyWeatherModel
+import com.example.weatherapp.business.model.HourlyWeatherModel
+import com.example.weatherapp.business.model.WeatherDataModel
 import com.example.weatherapp.presenters.MainPresenter
 import com.example.weatherapp.view.MainView
 import com.example.weatherapp.view.adapters.MainDailyListAdapter
@@ -73,7 +76,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         main_city_name.text = data
     }
 
-    override fun displayCurrentData(data: WeatherData) {
+    override fun displayCurrentData(data: WeatherDataModel) {
         main_city_name.text = "Minsk"
         main_date_name.text = "21 april"
         main_weather_conditional_icon.setImageResource(R.drawable.ic_sun)

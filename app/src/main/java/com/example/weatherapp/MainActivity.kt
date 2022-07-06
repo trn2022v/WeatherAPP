@@ -96,6 +96,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             main_wind_speed_mu_tv.text = StringBuilder().append(current.wind_speed.toString()).append(" m/s").toString()
             main_sunrise_mu_tv.text = current.sunrise.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
             main_sunset_mu_tv.text = current.sunset.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
+            main_uv_tv.text = current.uvi.toString()
 
         }
 

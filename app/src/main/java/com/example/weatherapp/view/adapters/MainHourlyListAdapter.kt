@@ -10,7 +10,9 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.example.weatherapp.R
 import com.example.weatherapp.business.model.HourlyWeatherModel
+import com.example.weatherapp.view.*
 import com.google.android.material.textview.MaterialTextView
+import java.lang.StringBuilder
 
 
 class MainHourlyListAdapter : BaseAdapter<HourlyWeatherModel>() {
@@ -46,13 +48,13 @@ class MainHourlyListAdapter : BaseAdapter<HourlyWeatherModel>() {
         }
 
         override fun bindView(position: Int) {
-            time.text = "14:00"
-            temperature.text = "33°"
-            popRate.text =" 100%"
-            if (position==1){
-                time.setTextColor(ContextCompat.getColor(time.context, R.color.purple_700))
+            mData[position].apply {
+                time.text = dt.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
+                temperature.text = StringBuilder().append(temp.toDegree()).append("°").toString()
+                popRate.text = pop.toPercent(" %")
+                icon.setImageResource(weather[0].icon.provideIcon())
             }
-                icon.setImageResource(R.drawable.ic_sun)
+
 
         }
 

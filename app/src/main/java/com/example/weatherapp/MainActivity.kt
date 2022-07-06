@@ -1,5 +1,6 @@
 package com.example.weatherapp
 
+import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +9,7 @@ import com.example.weatherapp.business.model.DailyWeatherModel
 import com.example.weatherapp.business.model.HourlyWeatherModel
 import com.example.weatherapp.business.model.WeatherDataModel
 import com.example.weatherapp.presenters.MainPresenter
-import com.example.weatherapp.view.MainView
+import com.example.weatherapp.view.*
 import com.example.weatherapp.view.adapters.MainDailyListAdapter
 import com.example.weatherapp.view.adapters.MainHourlyListAdapter
 import com.google.android.gms.location.LocationCallback
@@ -18,6 +19,7 @@ import com.google.android.gms.location.Priority
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import java.lang.StringBuilder
 
 const val TAG = "GEO_TEST"
 
@@ -30,7 +32,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val locationRequest by lazy { initLocationRequest() }
     private lateinit var mLocation: Location
 
-
+@SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,13 +53,13 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         mainPresenter.enable()
 
-       // geoService.requestLocationUpdates(locationRequest, geoCallBack, null)
+        geoService.requestLocationUpdates(locationRequest, geoCallBack, null)
 
     }
 
     private fun initViews() {
         main_city_name.text = "Minsk"
-        main_date_name.text = "21 april"
+        main_date_tv.text = "21 april"
         main_weather_conditional_icon.setImageResource(R.drawable.ic_sun)
         main_temp.text = "25\u00b0"
         main_min_temp.text = "17"
@@ -67,8 +69,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         main_pressure_mu_tv.text = "1654 hPa"
         main_humidity_mu_tv.text = "70%"
         main_wind_speed_mu_tv.text = "2 m/s"
-        main_sunup_mu_tv.text = "6:30"
-        main_sundown_mu_tv.text = "22:24"
+        main_sunrise_mu_tv.text = "6:30"
+        main_sunset_mu_tv.text = "22:24"
     }
     //------------------------------------ moxy code
 
@@ -76,20 +78,27 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         main_city_name.text = data
     }
 
+
     override fun displayCurrentData(data: WeatherDataModel) {
-        main_city_name.text = "Minsk"
-        main_date_name.text = "21 april"
-        main_weather_conditional_icon.setImageResource(R.drawable.ic_sun)
-        main_temp.text = "25\u00b0"
-        main_min_temp.text = " 17"
-        main_max_temp.text = "27"
-        main_weather_img.setImageResource(R.mipmap.union3x)
-        main_weather_conditional_description.text = "clear sky"
-        main_pressure_mu_tv.text = "1654 hPa"
-        main_humidity_mu_tv.text = "70%"
-        main_wind_speed_mu_tv.text = "2 m/s"
-        main_sunup_mu_tv.text = "6:30"
-        main_sundown_mu_tv.text = "22:24"
+        data.apply {
+            main_date_tv.text = current.dt.toDateFormatOf(DAY_FULL_MONTH_NAME)
+            main_weather_conditional_icon.setImageResource(current.weather[0].icon.provideIcon())
+            main_temp.text = StringBuilder().append(current.temp.toDegree()).append("°").toString()
+            daily[0].temp.apply {
+                main_min_temp.text = min.toDegree()
+                main_max_temp.text = max.toDegree()
+            }
+            main_weather_img.setImageResource(R.mipmap.union3x)
+            main_weather_conditional_description.text = current.weather[0].description
+            main_pressure_mu_tv.text =
+                StringBuilder().append(current.pressure.toString()).append(" hPa").toString()
+            main_humidity_mu_tv.text = StringBuilder().append(current.humidity.toString()).append(" %").toString()
+            main_wind_speed_mu_tv.text = StringBuilder().append(current.wind_speed.toString()).append(" m/s").toString()
+            main_sunrise_mu_tv.text = current.sunrise.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
+            main_sunset_mu_tv.text = current.sunset.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
+
+        }
+
     }
 
     override fun displayHourlyData(data: List<HourlyWeatherModel>) {

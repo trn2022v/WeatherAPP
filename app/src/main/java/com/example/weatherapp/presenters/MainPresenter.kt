@@ -11,14 +11,13 @@ class MainPresenter : BasePresenter<MainView>() {
 
     override fun enable() {
         repo.dataEmitter.subscribe { response ->
-            Log.d("MAINREPO"," Presenter enable():$response")
+            Log.d("MAINREPO", "presenter enable: ")
             viewState.displayLocation(response.cityName)
             viewState.displayCurrentData(response.weatherData)
             viewState.displayDailyData(response.weatherData.daily)
             viewState.displayHourlyData(response.weatherData.hourly)
             response.error?.let{viewState.displayError(response.error)}
         }
-
     }
 
     fun refresh(lat: String, lon: String) {

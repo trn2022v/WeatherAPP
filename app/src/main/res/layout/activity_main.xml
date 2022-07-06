@@ -45,7 +45,7 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/main_date_name"
+            android:id="@+id/main_date_tv"
             style="@style/main_weather_conditional_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -271,7 +271,7 @@
                     android:src="@drawable/ic_sunup" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/main_sunup_mu_tv"
+                    android:id="@+id/main_sunrise_mu_tv"
                     style="@style/AdditionalWeatherInformationStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -291,7 +291,7 @@
                     android:src="@drawable/ic_sundown" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/main_sundown_mu_tv"
+                    android:id="@+id/main_sunset_mu_tv"
                     style="@style/AdditionalWeatherInformationStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

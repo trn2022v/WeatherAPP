@@ -9,6 +9,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.example.weatherapp.R
 import com.example.weatherapp.business.model.DailyWeatherModel
+import com.example.weatherapp.view.*
 import com.google.android.material.textview.MaterialTextView
 
 class MainDailyListAdapter : BaseAdapter<DailyWeatherModel>() {
@@ -48,16 +49,15 @@ class MainDailyListAdapter : BaseAdapter<DailyWeatherModel>() {
         }
 
         override fun bindView(position: Int) {
-            date.text = " 25 saturday"
-            popRate.text = "100%"
-            minTemp.text = "23°"
-            maxTemp.text = "33°"
-            if (position == 3) {
-                icon.setImageResource(R.drawable.ic_sun)
+            mData[position].apply {
+                date.text = dt.toDateFormatOf(DAY_WEEK_NAME_LONG)
+                popRate.text = pop.toPercent(" %")
+                minTemp.text = StringBuilder().append(temp.min.toDegree()).append("°").toString()
+                maxTemp.text = StringBuilder().append(temp.max.toDegree()).append("°").toString()
+                icon.setImageResource(weather[0].icon.provideIcon())
+
             }
-
         }
-
     }
 }
 

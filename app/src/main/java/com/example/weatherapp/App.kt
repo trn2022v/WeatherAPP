@@ -19,8 +19,7 @@ class App : Application() {
 
         //todo убать fallbackToDestructiveMigration к релизу
         db = Room.databaseBuilder(this, OpenWeatherDatabase::class.java, "OpenWeatherDB")
-            .fallbackToDestructiveMigration()
-            .build()
+            .fallbackToDestructiveMigration().build()
 
         val preferences = getSharedPreferences(APP_SETTINGS, MODE_PRIVATE)
         val flag = preferences.contains(IS_STARTED_UP)

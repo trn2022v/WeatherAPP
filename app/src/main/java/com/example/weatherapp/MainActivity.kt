@@ -19,10 +19,10 @@ import com.google.android.gms.location.Priority
 import kotlinx.android.synthetic.main.activity_main.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import java.lang.StringBuilder
 
 const val TAG = "GEO_TEST"
 
+@Suppress("DEPRECATION")
 class MainActivity : MvpAppCompatActivity(), MainView {
 
 
@@ -32,7 +32,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val locationRequest by lazy { initLocationRequest() }
     private lateinit var mLocation: Location
 
-@SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -92,8 +92,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             main_weather_conditional_description.text = current.weather[0].description
             main_pressure_mu_tv.text =
                 StringBuilder().append(current.pressure.toString()).append(" hPa").toString()
-            main_humidity_mu_tv.text = StringBuilder().append(current.humidity.toString()).append(" %").toString()
-            main_wind_speed_mu_tv.text = StringBuilder().append(current.wind_speed.toString()).append(" m/s").toString()
+            main_humidity_mu_tv.text =
+                StringBuilder().append(current.humidity.toString()).append(" %").toString()
+            main_wind_speed_mu_tv.text =
+                StringBuilder().append(current.wind_speed.toString()).append(" m/s").toString()
             main_sunrise_mu_tv.text = current.sunrise.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
             main_sunset_mu_tv.text = current.sunset.toDateFormatOf(HOUR_DOUBLE_DOT_MINUTE)
             main_uv_tv.text = current.uvi.toString()
@@ -139,8 +141,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
                 mLocation = location
                 mainPresenter.refresh(mLocation.latitude.toString(), mLocation.longitude.toString())
                 Log.d(
-                    TAG,
-                    "onLocationResult: let :${location.latitude}; lon :${location.longitude}"
+                    TAG, "onLocationResult: let :${location.latitude}; lon :${location.longitude}"
                 )
             }
         }

@@ -1,14 +1,13 @@
 package com.example.weatherapp.business.repos
 
+import android.annotation.SuppressLint
 import android.util.Log
-import com.example.weatherapp.TAG
 import com.example.weatherapp.business.ApiProvider
 import com.example.weatherapp.business.model.WeatherDataModel
 import com.example.weatherapp.business.room.WeatherDataEntity
 import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 const val TAG = "MAINREPO"
@@ -18,28 +17,21 @@ class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRes
     private val gson = Gson()
     private val dbAccess = db.getWeatherDao()
 
+    @SuppressLint("CheckResult")
     fun reloadData(lat: String, lon: String) {
-        Observable.zip(
-            api.provideWeatherApi().getWeatherForecast(lat, lon),
+        Observable.zip(api.provideWeatherApi().getWeatherForecast(lat, lon),
             api.provideGeoCodeApi().getCityByCoord(lat, lon).map {
-                it.asSequence()
-                    .map { model -> model.name }
-                    .toList()
+                it.asSequence().map { model -> model.name }.toList()
                     //todo настроить локализацию проекта
-                    .filterNotNull()
-                    .first()
-            }
-        ) { weatherData, geoCode -> ServerResponse(geoCode, weatherData) }
-            .subscribeOn(Schedulers.io())
+                    .filterNotNull().first()
+            }) { weatherData, geoCode -> ServerResponse(geoCode, weatherData) }.subscribeOn(Schedulers.io())
             .doOnNext {
                 dbAccess.insertWeatherData(
                     WeatherDataEntity(
-                        data = gson.toJson(it.weatherData),
-                        city = it.cityName
+                        data = gson.toJson(it.weatherData), city = it.cityName
                     )
                 )
-            }
-            .onErrorResumeNext {
+            }.onErrorResumeNext {
                 Observable.just(
                     ServerResponse(
                         dbAccess.getWeatherData().city,
@@ -47,9 +39,7 @@ class MainRepository(api: ApiProvider) : BaseRepository<MainRepository.ServerRes
                         it
                     )
                 )
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
+            }.observeOn(AndroidSchedulers.mainThread()).subscribe(
                 {
                     dataEmitter.onNext(it)
                 }, {

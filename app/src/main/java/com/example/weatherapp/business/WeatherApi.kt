@@ -1,6 +1,5 @@
 package com.example.weatherapp.business
 
-import com.example.weatherapp.business.model.Weather
 import com.example.weatherapp.business.model.WeatherDataModel
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET

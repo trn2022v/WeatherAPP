@@ -1,5 +1,6 @@
 package com.example.weatherapp.presenters
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.weatherapp.business.ApiProvider
 import com.example.weatherapp.business.repos.MainRepository
@@ -9,6 +10,7 @@ class MainPresenter : BasePresenter<MainView>() {
 
     private val repo = MainRepository(ApiProvider())
 
+    @SuppressLint("CheckResult")
     override fun enable() {
         repo.dataEmitter.subscribe { response ->
             Log.d("MAINREPO", "presenter enable: ")

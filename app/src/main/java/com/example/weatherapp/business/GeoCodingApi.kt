@@ -12,7 +12,7 @@ interface GeoCodingApi {
         @Query("lat") lat: String,
         @Query("lon") lon: String,
         @Query("limit") limit: String = "5",
-        @Query("appid") id: String = "bb05d5c931a1b4f1228180fe13221ed6"
+        @Query("appid") id: String = "8c3ba12e2f41fc763541f7243ae82950"
 
     ): Observable<List<GeoCodeModel>>
 }

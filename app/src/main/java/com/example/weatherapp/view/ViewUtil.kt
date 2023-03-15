@@ -12,7 +12,7 @@ const val HOUR_DOUBLE_DOT_MINUTE = "HH:mm"
 fun Long.toDateFormatOf(format: String): String {
 
     val cal = Calendar.getInstance()
-    val rimeZone = cal.timeZone
+    val timeZone = cal.timeZone
     val sdf = SimpleDateFormat(format, Locale.getDefault())
     return sdf.format(Date(this * 1000))
 

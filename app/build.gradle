@@ -34,9 +34,10 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding = false
+        viewBinding = true
     }
     namespace 'com.example.weatherapp'
+    buildToolsVersion '33.0.1'
 }
 
 dependencies {
@@ -77,6 +78,6 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     // Room
-    implementation "androidx.room:room-runtime:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
+    implementation "androidx.room:room-runtime:2.5.1"
+    kapt "androidx.room:room-compiler:2.5.1"
 }
